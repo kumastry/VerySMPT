@@ -1,0 +1,91 @@
+\documentclass[dvipdfmx,a4paper]{jsarticle}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{latexsym}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\theoremstyle{definition}
+\newtheorem{thm}{定理}[section]
+\newtheorem{defn}[thm]{定義}
+\newtheorem{lem}[thm]{補題}
+\newtheorem{prop}[thm]{命題}
+\newtheorem{cor}[thm]{系}
+\renewcommand{\proofname}{\textbf{証明}\nopunct}
+\title{簡易的SMTPの実装}
+\author{5419063 工藤正和\\日本大学文理学部情報科学科}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  
+
+\end{abstract}
+
+\section{目的}
+SMTP(Simple Mail Transfer Protocol)とは，電子メール転送についてのプロトコルである．
+SMTPを導入する目的はRFC5321よるとメールを確実かつ効率的に転送することである．
+このレポートの目的はSMTPの簡易的な実装を行い，その動作を確認することである．
+
+
+\section{制作内容}
+  本レポートでは，簡易的なSMTPの実装を行う．
+  SMTPとは電子メール転送のプロトコルである．
+  SMTPはサーバー間のメール転送だけではなく，クライアントとサーバー間でもメール転送を行う．
+  前者による転送をリレー(Relay)と呼び，後者をサブミッション(Submission)と呼ぶ．
+  また，リレーとサブミッションではポート番号が異なる．リレーの場合は25，サブミッションの場合は587である．
+  SMTPのコマンドにはEHLO，MAIL，RCRT，DATA，RSET，VRFY，NOOP，EXPN，HELPやQUITなどが存在する．
+  しかし，本実装では簡略化のため，コマンドはEHLO，MAIL，RCRT，DATAとQUITにだけ対応させる．
+  また，さらなる簡略化のため，実装はサブミッションのみ行う．
+
+\section{プログラムについて}
+\subsection{プログラムの説明}
+最初にSMTPクライアントのプログラムの動作を説明する．
+まず，クライアントのプログラムを起動すると簡易的なコンソールが表示されるようになっている．
+コンソールにコマンドを入力し，ポート番号27のSMTPサーバーにコマンドを送信する．
+そして，サーバーからレスポンスが返信され，そのレスポンスが500番台のエラーならコネクションを切断する．
+また，DATAコマンドを送信したとき，メール本文を入力を促す画面が表示される．
+メール本文はEnterキーで一行ずつサーバーに送信される．そして，ピリオドのみを入力して送信した場合はメールの入力が終了する．
+なお，サーバーとのコネクションが接続されているかどうかでも，画面表示を異なるようにしている．
+
+
+
+次に，SMTPサーバーのプログラムの動作について説明する．
+クライアントから送信された文字列がSMTPコマンド(EHLO，MAIL，RCRT，DATAとQUIT)である場合は，200，300番台のレスポンスを返す．
+そうでない場合は，502  Command not implementedを返す．また，コマンドの引数が異なる場合は501  Syntax error in parameters or argumentsを返す．
+その上，コマンドの順序が指定されたものと異なる場合は503  Bad sequence of commandsを返す．
+なお，コマンドの順序はEHLO -> MAIL -> RCRT(複数の送信先がある場合，複数回コマンド送信してもよい) -> DATA -> QUITである．
+そして，DATAコマンドが送信された時，クライアントからメール本文が送信される．QUITコマンドが送信された時，コネクションが切断される．
+また，メール本文はローカルファイルに保存される．
+
+
+
+
+最後に，工夫した点は次の通りである．
+\begin{itemize}
+  \item コマンドとコマンド引数の入力をクライアント側から大文字，小文字区別させないようにした(ドメイン名を除く)
+  \item ハッシュマップでコマンド入力の順序を管理した
+  \item フラグを用いてサーバに送られたデータがコマンドかメール本文かを判断した
+\end{itemize}
+\subsection{プログラム}
+サーバーとクライアントのプログラムは次のようになっている．
+
+
+
+
+
+\section{結論と展望}
+今回はSMTPサブミッションのプロトコルを簡略化して実装を行った．
+SMTPクライアントでは，SMTPコマンドとメール本文をサーバーに送信できるプログラムを作成した．
+SMTPサーバーでは，クライアントからのSMTPコマンドとメール本文を処理し，様々なレスポンスを返すプログラムを作成した．
+今回はサブミッションの実装だけだったが，本格的にSMTPプロトコルを実装するならば，SMTPリレーや認証の実装も必要になってくるだろう．
+また，本格的なメールアプリケーションの実装する場合にはSMTPだけではなく，POPプロトコルの実装も必要になってくるだろう．
+
+\end{document}
