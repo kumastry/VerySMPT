@@ -14,7 +14,7 @@ void setup() {
   server = new Server(this, 587);
   commandSeq.put("EHLO", false);
   commandSeq.put("MAIL", false);
-  commandSeq.put("RCRT", false);
+  commandSeq.put("RCPT", false);
   commandSeq.put("DATA", false);
   commandSeq.put("QUIT", false);
 }
@@ -42,7 +42,6 @@ void clientEvent(Client client) {
       String clientDomain, arg;
       /*
       println("###");
-      println(data);
       println(command);
       println("$$$");
       */
@@ -71,8 +70,8 @@ void clientEvent(Client client) {
             if(arg.equals("FROM:") == false) {
               response = "501  Syntax error in parameters or arguments";
             } else {
-              from = data.substring(11, data.length());
-              mailStrings[mailIndex++] = from;
+              from = data.substring(10, data.length());
+              mailStrings[mailIndex++] = "from:"+from;
             }
             
           } else {
@@ -83,7 +82,8 @@ void clientEvent(Client client) {
         case "RCPT":
           if(
           commandSeq.get("EHLO") == true && 
-          commandSeq.get("MAIL") == true 
+          commandSeq.get("MAIL") == true &&
+          commandSeq.get("RCPT") == false 
           ){
             commandSeq.put("RCPT", true);
             response = "250 Ok";
@@ -93,8 +93,8 @@ void clientEvent(Client client) {
             if(arg.equals("TO:") == false) {
               response = "501  Syntax error in parameters or arguments";
             } else {
-              to += data.substring(9, data.length()) + "\n";
-              mailStrings[mailIndex++] = to;
+              to += data.substring(8, data.length());
+              mailStrings[mailIndex++] = "to:"+to;
             }
             
           } else {
@@ -126,8 +126,8 @@ void clientEvent(Client client) {
         case "QUIT":
           if(
           commandSeq.get("EHLO") == true && 
-          commandSeq.get("MAIL") == true && 
-          commandSeq.get("RCRT")  == true && 
+          commandSeq.get("MAIL") == true &&
+          commandSeq.get("RCPT") == true &&
           commandSeq.get("DATA") == true &&
           commandSeq.get("QUIT") == false
           ){
@@ -151,7 +151,11 @@ void clientEvent(Client client) {
         String mailData = client.readString();
         
         if(mailData.equals(".") == true) {
-          saveStrings(UUID.randomUUID().toString() + ".txt", mailStrings);
+          String[] saveMail = new String[mailIndex];
+          for(int i = 0; i < mailIndex; i++) {
+            saveMail[i] = mailStrings[i];
+          }
+          saveStrings(UUID.randomUUID().toString() + ".txt", saveMail);
           mailIndex = 0;
           mailMode = false;
           server.write("250 Ok");

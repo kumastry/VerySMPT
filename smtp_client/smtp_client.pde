@@ -98,6 +98,12 @@ void clientEvent(Client client) {
     if(client.active()) {
       response = client.readString();
       
+      if(response.equals("221 Bye") == true) {
+        isDisconnect = true;
+        delay(2000);
+        client.stop();
+      }
+      
       if(mailMode == true && response.equals("250 Ok") == true) {
         mailMode = false;
         delay(2000);

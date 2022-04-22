@@ -361,9 +361,6 @@ INPUT c:/texlive/2021/texmf-dist/fonts/tfm/public/lm/ec-lmr12.tfm
 INPUT c:/texlive/2021/texmf-dist/fonts/tfm/ptex-fonts/standard/tgoth10.tfm
 INPUT c:/texlive/2021/texmf-dist/fonts/tfm/ptex-fonts/jis/jisg.tfm
 INPUT c:/texlive/2021/texmf-dist/fonts/tfm/public/lm/ec-lmss12.tfm
-INPUT c:/texlive/2021/texmf-dist/fonts/tfm/ptex-fonts/standard/tgoth10.tfm
-INPUT c:/texlive/2021/texmf-dist/fonts/tfm/ptex-fonts/jis/jisg.tfm
-INPUT c:/texlive/2021/texmf-dist/fonts/tfm/public/lm/ec-lmss12.tfm
 OUTPUT out/5419063_report3.dvi
 INPUT c:/texlive/2021/texmf-dist/tex/latex/lm/ts1lmr.fd
 INPUT c:/texlive/2021/texmf-dist/tex/latex/lm/ts1lmr.fd

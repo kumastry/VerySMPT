@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.141592653-p3.9.0-210218-2.6 (utf8.sjis) (TeX Live 2021/W32TeX) (preloaded format=platex 2021.7.24)  4 FEB 2022 21:10
+This is e-pTeX, Version 3.141592653-p3.9.0-210218-2.6 (utf8.sjis) (TeX Live 2021/W32TeX) (preloaded format=platex 2021.7.24)  4 FEB 2022 22:28
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -325,24 +325,20 @@ LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
 (Font)              scaled to size 13.83836pt on input line 32.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
 (Font)              scaled to size 13.83836pt on input line 32.
-LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
-(Font)              scaled to size 11.53198pt on input line 49.
-LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 11.53198pt on input line 49.
 [1
 
 ]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 73.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 72.
 (c:/texlive/2021/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [2] (out/5419063_report3.aux) ) 
 Here is how much of TeX's memory you used:
- 3444 strings out of 479005
- 48550 string characters out of 5865968
+ 3443 strings out of 479005
+ 48536 string characters out of 5865968
  353990 words of memory out of 5000000
- 21547 multiletter control sequences out of 15000+600000
- 447272 words of font info for 93 fonts, out of 8000000 for 9000
+ 21546 multiletter control sequences out of 15000+600000
+ 444207 words of font info for 90 fonts, out of 8000000 for 9000
  934 hyphenation exceptions out of 8191
  70i,6n,80p,307b,301s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on out/5419063_report3.dvi (2 pages, 7512 bytes).
+Output written on out/5419063_report3.dvi (2 pages, 7516 bytes).
